@@ -14,22 +14,22 @@ const links = [
     path: "/research",
     label: "Research",
   },
-  {
-    path: "/projects",
-    label: "Projects",
-  },
-  {
-    path: "/blog",
-    label: "Blog",
-  },
-  {
-    path: "/cv",
-    label: "CV",
-  },
-  {
-    path: "/misc",
-    label: "Misc",
-  },
+  // {
+  //   path: "/projects",
+  //   label: "Projects",
+  // },
+  // {
+  //   path: "/blog",
+  //   label: "Blog",
+  // },
+  // {
+  //   path: "/cv",
+  //   label: "CV",
+  // },
+  // {
+  //   path: "/misc",
+  //   label: "Misc",
+  // },
 ];
 
 const Navbar = () => {
