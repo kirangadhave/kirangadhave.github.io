@@ -1,6 +1,6 @@
 export type FeedItem = {
-  id: number;
+  id: number | string;
   date: string;
   header: string;
-  description: string;
+  description?: string;
 };

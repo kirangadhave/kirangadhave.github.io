@@ -1,6 +1,54 @@
 import Link from "next/link";
 import Feed from "../components/Feed";
 import Layout from "../components/Layout";
+import { FeedItem } from "../types";
+
+// export async function getStaticProps() {
+//   const items = await getFeedItems();
+
+//   return {
+//     props: { items },
+//   };
+// }
+
+// type Props = {
+//   items: FeedItem[];
+// };
+
+const items: FeedItem[] = [
+  {
+    id: "fair_pay_panel_2021",
+    date: "October 2021",
+    header: "Organizing a panel at IEEE VIS 2021",
+    description:
+      "Will organize a panel titled <strong>Wait...when did we sign up to become economists</strong> at IEEE VIS 2021 with my co-organizer derya akbaba.",
+  },
+  {
+    id: "student_volunteer_2021",
+    date: "October 2021",
+    header: "Student Volunteer at IEEE VIS 2021",
+  },
+  {
+    id: "intent_sage_accepted_2021",
+    date: "August 2021",
+    header: "Paper accepted in Information Visualization Journal",
+  },
+  {
+    id: "summer_camp_2021",
+    date: "August 2021",
+    header: "Presenting at VIS Summer Camp 2021",
+  },
+  {
+    id: "provviz_workshop_2021",
+    date: "July 2021",
+    header: "Workshop on Provenance and Visualization",
+  },
+  {
+    id: "student_volunteer_2020",
+    date: "October 2020",
+    header: "Student Volunteer at IEEE VIS 2020",
+  },
+];
 
 const IndexPage = () => (
   <Layout title="Home">
@@ -61,43 +109,12 @@ const IndexPage = () => (
           >
             Github
           </a>{" "}
-          for code related to the above projects.
+          for code related to the projects.
         </p>
         <div className="text-3xl md:text-5xl text-gray-700">Updates</div>
       </div>
       <div className="px-2 py-1">
-        <Feed
-          items={[
-            {
-              id: 1,
-              date: "May 2021",
-              header: "Test 1",
-              description:
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut natus voluptatum quidem velit magni reiciendis id, recusandae quisquam cupiditate, consectetur dolor porro et nisi, qui facilis sunt ex? Quia, officia!",
-            },
-            {
-              id: 2,
-              date: "May 2018",
-              header: "Test 2",
-              description:
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut natus voluptatum quidem velit magni reiciendis id, recusandae quisquam cupiditate, consectetur dolor porro et nisi, qui facilis sunt ex? Quia, officia!",
-            },
-            {
-              id: 3,
-              date: "May 2018",
-              header: "Test 2",
-              description:
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut natus voluptatum quidem velit magni reiciendis id, recusandae quisquam cupiditate, consectetur dolor porro et nisi, qui facilis sunt ex? Quia, officia!",
-            },
-            {
-              id: 4,
-              date: "May 2018",
-              header: "Test 2",
-              description:
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut natus voluptatum quidem velit magni reiciendis id, recusandae quisquam cupiditate, consectetur dolor porro et nisi, qui facilis sunt ex? Quia, officia!",
-            },
-          ]}
-        />
+        <Feed items={items} />
       </div>
     </div>
   </Layout>

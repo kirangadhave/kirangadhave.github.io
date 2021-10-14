@@ -4,6 +4,7 @@
 //
 // import { User } from 'path/to/interfaces';
 export * from "./FeedItem";
+export * from "./Publication";
 
 export type User = {
   id: number;
