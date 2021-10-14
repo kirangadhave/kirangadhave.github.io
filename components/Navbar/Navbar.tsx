@@ -6,10 +6,10 @@ import { useState } from "react";
 import NavItem from "./NavItem";
 
 const links = [
-  {
-    path: "/about",
-    label: "About",
-  },
+  // {
+  //   path: "/about",
+  //   label: "About",
+  // },
   {
     path: "/research",
     label: "Research",
