@@ -1,5 +1,22 @@
 import type { Config } from 'tailwindcss';
 
+// Light Mode Colors
+// https://huemint.com/website-2/#palette=#e3e5e7-#2b292b-1fade4-e90053
+
+// Dark Mode Colors
+// https://huemint.com/website-2/#palette=182f42-fcfbfd-1fade4-e90053
+// https://huemint.com/website-2/#palette=2b292b-e3e5e7-1fade4-e90053
+
+/** To Use
+ *
+ * Light:
+ * https://huemint.com/website-2/#palette=#e3e5e7-#2b292b-#1fade4-#e90053
+ *
+ * Dark:
+ * https://huemint.com/website-2/#palette=#2b292b-#e3e5e7-#1fade4-#e90053
+ *
+ **/
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -28,6 +45,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
 };
 export default config;
