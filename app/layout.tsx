@@ -16,7 +16,7 @@ const poppins = Poppins({
 const COLOR_MODE_KEY = '__kbg_color_mode__';
 
 function useDarkMode() {
-  let initial: ColorMode = 'light';
+  let initial: ColorMode = 'dark';
 
   if (typeof window !== 'undefined') {
     initial = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -59,15 +59,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={clsx(
-          {
-            dark: darkMode === 'dark',
-          },
+        className={clsx( darkMode === 'dark' ? 'dark' : 'light' ,
           'font-sans',
           poppins.className,
         )}
       >
-        <main className="flex min-h-screen flex-col justify-between gap-2 bg-white dark:bg-black">
+        <main className="flex min-h-screen flex-col justify-between gap-2 bg-wht dark:bg-blk ">
           {false && <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />}
           {children}
           {false && <Footer />}

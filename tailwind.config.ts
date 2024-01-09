@@ -26,15 +26,24 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      typography: () => ({
+        thm: {
+          css: {
+          '--tw-prose-body': "#2b292b",
+          '--tw-prose-headings': "#2b292b",
+          '--tw-prose-links': "#e90053",
+          '--tw-prose-invert-body': "#e3e5e7",
+          '--tw-prose-invert-headings': "#e3e5e7",
+          '--tw-prose-invert-links': "#1fade4",
+        }
+        },
+      }),
       gridTemplateColumns: {
         '13': 'repeat(13, minmax(0, 1fr))',
       },
       colors: {
-        blue: {
-          400: '#2589FE',
-          500: '#0070F3',
-          600: '#2F6FEB',
-        },
+        blk: "#2b292b",
+        wht: "#e3e5e7"
       },
     },
     keyframes: {

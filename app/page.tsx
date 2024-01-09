@@ -50,11 +50,11 @@ const socials = [
 
 export default function Page() {
   return (
-    <div className="flex grow flex-col gap-8 ">
+    <div className="flex grow flex-col gap-8">
       <div className="flex w-full flex-col justify-center p-8 md:p-16 lg:flex-row">
         <div className="m-4 mt-16 flex flex-col items-center">
           <div className="w-[200px]">
-            <div className="duration-400 relative aspect-square overflow-hidden rounded-full ring-2 ring-pink-500 ring-offset-2 transition-all hover:ring-4 ">
+            <div className="duration-400 relative aspect-square overflow-hidden rounded-full ring-2 dark:ring-[#e90053] ring-offset-2 transition-all hover:ring-4 ring-[#1fade4]">
               <Image
                 src="/assets/home_page.jpg"
                 layout="filled"
@@ -65,7 +65,7 @@ export default function Page() {
               />
             </div>
           </div>
-          <div className="prose mx-2 my-4 w-max lg:text-right">
+          <div className="prose mx-2 my-4 w-max lg:text-right prose-thm dark:prose-invert">
             {socials.map(({ key, Icon, value, display = value }) => (
               <div key={key}>
                 <Icon className="mr-2 inline-block align-middle lg:hidden" />
@@ -74,7 +74,7 @@ export default function Page() {
                     ki&#114;anga&#100;&#104;av&#101;2&#64;&#103;mail&#46;com
                   </a>
                 ) : (
-                  <a href={value}>{display}</a>
+                  <a href={value} >{display}</a>
                 )}
                 <Icon className="invisible ml-2 inline-block align-middle lg:visible" />
               </div>
@@ -83,7 +83,7 @@ export default function Page() {
         </div>
 
         <div>
-          <div className="prose p-4">
+          <div className="prose p-4 dark:prose-invert prose-thm">
             <About />
           </div>
         </div>
