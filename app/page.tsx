@@ -6,6 +6,7 @@ import {
 } from '@tabler/icons-react';
 import { IconAt, IconBrandTwitter } from '@tabler/icons-react';
 import Image from 'next/image';
+import About from '@/app/content/home/about.mdx';
 
 const socials = [
   {
@@ -49,18 +50,9 @@ const socials = [
 
 export default function Page() {
   return (
-    <div className="mx-32 flex grow flex-col gap-8 ">
-      <div className="flex w-full flex-row justify-between px-16 py-16">
-        <div className="prose flex flex-col gap-4 p-4">
-          <h1 className="font-semibold">Kiran Gadhave</h1>
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
-            assumenda nostrum dolores. Inventore quis earum libero
-            exercitationem, qui ea mollitia eveniet, ipsam asperiores debitis
-            voluptate soluta in sequi ducimus ipsum?
-          </div>
-        </div>
-        <div className="m-4 flex w-min flex-col justify-center">
+    <div className="flex grow flex-col gap-8 ">
+      <div className="flex w-full flex-col justify-center p-8 md:p-16 lg:flex-row">
+        <div className="m-4 mt-16 flex flex-col items-center">
           <div className="w-[200px]">
             <div className="duration-400 relative aspect-square overflow-hidden rounded-full ring-2 ring-pink-500 ring-offset-2 transition-all hover:ring-4 ">
               <Image
@@ -73,10 +65,10 @@ export default function Page() {
               />
             </div>
           </div>
-          <div className="prose mx-2 my-4 w-max">
+          <div className="prose mx-2 my-4 w-max lg:text-right">
             {socials.map(({ key, Icon, value, display = value }) => (
               <div key={key}>
-                <Icon className="mr-2 inline-block align-middle" />
+                <Icon className="mr-2 inline-block align-middle lg:hidden" />
                 {key === 'Email' ? (
                   <a href="ma&#105;lto&#58;k%69%72an%67&#97;dhave&#50;&#64;&#103;mai&#108;&#46;&#37;63o&#109;">
                     ki&#114;anga&#100;&#104;av&#101;2&#64;&#103;mail&#46;com
@@ -84,8 +76,15 @@ export default function Page() {
                 ) : (
                   <a href={value}>{display}</a>
                 )}
+                <Icon className="invisible ml-2 inline-block align-middle lg:visible" />
               </div>
             ))}
+          </div>
+        </div>
+
+        <div>
+          <div className="prose p-4">
+            <About />
           </div>
         </div>
       </div>

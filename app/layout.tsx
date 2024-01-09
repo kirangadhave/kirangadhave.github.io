@@ -1,9 +1,17 @@
 'use client';
+
 import '@/app/ui/global.css';
+import '@code-hike/mdx/dist/index.css';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
-import Footer from './ui/footer';
-import Navbar, { ColorMode } from './ui/navbar';
+import Footer from '@/app/ui/footer';
+import Navbar, { ColorMode } from '@/app/ui/navbar';
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin-ext'],
+});
 
 const COLOR_MODE_KEY = '__kbg_color_mode__';
 
@@ -51,14 +59,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={clsx({
-          dark: darkMode === 'dark',
-        })}
+        className={clsx(
+          {
+            dark: darkMode === 'dark',
+          },
+          'font-sans',
+          poppins.className,
+        )}
       >
         <main className="flex min-h-screen flex-col justify-between gap-2 bg-white dark:bg-black">
-          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+          {false && <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />}
           {children}
-          <Footer />
+          {false && <Footer />}
         </main>
       </body>
     </html>
