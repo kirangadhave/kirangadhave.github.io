@@ -1,0 +1,26 @@
+---
+/**
+ * Embeds a whole marimo notebook as a self-contained WASM iframe.
+ *
+ * The notebook is exported to public/notebooks/<slug>/ by scripts/build-islands.py
+ * (slug must be listed in that script's EMBEDS set). Unlike MarimoIsland, the
+ * iframe is a fully isolated document with its own Pyodide kernel, so several
+ * embeds — or an embed alongside inline islands — can coexist on one page.
+ */
+interface Props {
+  slug: string;
+  title: string;
+  height?: string;
+}
+
+const { slug, title, height = '600px' } = Astro.props;
+const src = `/notebooks/${slug}/`;
+---
+
+<iframe
+  src={src}
+  title={title}
+  loading="lazy"
+  class="marimo-embed not-prose w-full rounded-lg border border-black/10 dark:border-white/10"
+  style={`height: ${height}`}
+  sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

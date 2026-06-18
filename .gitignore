@@ -45,3 +45,12 @@ next-env.d.ts
 
 # agent process artifacts (plans/specs live in the vault, not the repo)
 docs/superpowers/
+
+# generated marimo island fragments (rebuilt by scripts/build-islands.py)
+src/generated/
+
+# generated standalone WASM notebooks for NotebookEmbed (rebuilt by scripts/build-islands.py)
+public/notebooks/
+
+# marimo session snapshot cache, written when notebooks run during the build
+notebooks/__marimo__/

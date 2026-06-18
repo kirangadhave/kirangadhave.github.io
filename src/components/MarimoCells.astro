@@ -1,0 +1,45 @@
+---
+/**
+ * Places a subset of a notebook's cells as one island block.
+ *
+ * All blocks for a given slug share the notebook's data-app-id, so the marimo
+ * frontend groups them into a single kernel no matter where they sit in the
+ * DOM — this is how a page can interleave several island blocks with prose.
+ * Every cell of the notebook must appear exactly once across the page's blocks
+ * so the kernel has the full dependency graph.
+ *
+ * Set `runtime` on exactly one block per page to inject the islands runtime
+ * (script + stylesheet); the kernel is a per-page singleton, so it loads once.
+ */
+interface Props {
+  slug: string;
+  cells: number[];
+  runtime?: boolean;
+}
+
+const { slug, cells, runtime = false } = Astro.props;
+
+const heads = import.meta.glob('../generated/islands/*.head.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+const cellSets = import.meta.glob('../generated/islands/*.cells.json', {
+  import: 'default',
+  eager: true,
+});
+
+const head = heads[`../generated/islands/${slug}.head.html`] as string | undefined;
+const all = cellSets[`../generated/islands/${slug}.cells.json`] as string[] | undefined;
+
+if (!head || !all) {
+  throw new Error(
+    `No marimo island generated for slug "${slug}". Add notebooks/${slug}.py and run \`pnpm build:islands\`.`
+  );
+}
+
+const selected = cells.map((i) => all[i]).join('\n');
+---
+
+{runtime && <Fragment set:html={head} />}
+<div class="marimo-island not-prose" set:html={selected} />
