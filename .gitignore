@@ -4,6 +4,11 @@
 /node_modules
 /.pnp
 .pnp.js
+.pnpm-store/
+
+# astro
+/dist/
+/.astro/
 
 # testing
 /coverage
@@ -36,3 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 .reference
+.superpowers/
