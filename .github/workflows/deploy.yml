@@ -20,6 +20,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      # The Astro build's prebuild hook runs scripts/build-islands.py via uv to
+      # generate the marimo island fragments and WASM notebook exports. uv must
+      # be on PATH before withastro/action runs `pnpm run build`; uv auto-fetches
+      # the Python version the script declares.
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v7
       - name: Build with Astro
         uses: withastro/action@v3
         with:
