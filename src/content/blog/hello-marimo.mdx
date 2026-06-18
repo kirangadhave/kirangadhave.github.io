@@ -6,14 +6,22 @@ tags: [marimo, astro]
 interactive: true
 ---
 
+import MarimoCells from '../../components/MarimoCells.astro';
+
 This site embeds [marimo](https://marimo.io) notebooks directly in the page. Not
 a screenshot, not a video — the actual reactive runtime, running in your browser.
 
-Below this paragraph an interactive island will live: move a control and the
-output recomputes, with no server round-trip. The island itself is wired up in a
-later step; for now this post exists to prove the blog plumbing renders prose,
-frontmatter, and tags correctly.
+Move the slider and the squares recompute — Python running in your browser with
+no server round-trip.
+
+<MarimoCells slug="hello-marimo" cells={[0, 1, 2]} runtime />
 
 Reactivity is the whole point. A marimo notebook is a dependency graph of cells,
 so changing one input propagates only to the cells that depend on it — the same
 idea that makes spreadsheets feel alive, applied to Python.
+
+The two blocks here are cells of one notebook, placed at different spots on the
+page. Below, the same slider drives an [Altair](https://altair-viz.github.io)
+chart of `x²` — pandas and Vega-Lite, all client-side.
+
+<MarimoCells slug="hello-marimo" cells={[3, 4]} />

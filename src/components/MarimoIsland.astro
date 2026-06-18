@@ -1,0 +1,39 @@
+---
+/**
+ * Inlines a build-time marimo island fragment (see scripts/build-islands.py).
+ *
+ * The head fragment (islands runtime script + stylesheet) is emitted inline
+ * rather than in <head>: this component is meant to be used inside MDX post
+ * bodies, and Astro slots only bubble one level, so a slot="head" here can't
+ * reach BaseLayout. A module script and its stylesheet load correctly from the
+ * body, and the runtime is deduped by URL when several islands share a page.
+ */
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+const heads = import.meta.glob('../generated/islands/*.head.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+const bodies = import.meta.glob('../generated/islands/*.body.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+const head = heads[`../generated/islands/${slug}.head.html`] as string | undefined;
+const body = bodies[`../generated/islands/${slug}.body.html`] as string | undefined;
+
+if (!head || !body) {
+  throw new Error(
+    `No marimo island generated for slug "${slug}". Add notebooks/${slug}.py and run \`pnpm build:islands\`.`
+  );
+}
+---
+
+<Fragment set:html={head} />
+<div class="marimo-island not-prose" set:html={body} />
