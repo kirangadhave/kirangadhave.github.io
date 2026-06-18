@@ -1,0 +1,26 @@
+---
+import { NAV } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+---
+
+<header class="flex items-center justify-between gap-4 px-6 py-4">
+  <a href="/" class="font-mono text-sm tracking-tight">kiran.gadhave</a>
+  <nav class="flex items-center gap-4 text-sm">
+    {
+      NAV.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+          class:list={['hover:text-accent', { 'text-accent': isActive(item.href) }]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <ThemeToggle />
+  </nav>
+</header>

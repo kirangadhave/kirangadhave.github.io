@@ -1,0 +1,19 @@
+---
+title: Hello, marimo
+date: 2026-06-18
+description: A first interactive post — proving inline marimo islands end to end.
+tags: [marimo, astro]
+interactive: true
+---
+
+This site embeds [marimo](https://marimo.io) notebooks directly in the page. Not
+a screenshot, not a video — the actual reactive runtime, running in your browser.
+
+Below this paragraph an interactive island will live: move a control and the
+output recomputes, with no server round-trip. The island itself is wired up in a
+later step; for now this post exists to prove the blog plumbing renders prose,
+frontmatter, and tags correctly.
+
+Reactivity is the whole point. A marimo notebook is a dependency graph of cells,
+so changing one input propagates only to the cells that depend on it — the same
+idea that makes spreadsheets feel alive, applied to Python.

@@ -1,0 +1,61 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { SITE } from '../consts';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+  /** Raw markdown body, used only to estimate reading time. */
+  body: string;
+}
+
+const { title, description, date, tags, body } = Astro.props;
+
+const WORDS_PER_MINUTE = 200;
+const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.round(wordCount / WORDS_PER_MINUTE));
+
+const isoDate = date.toISOString();
+const displayDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: isoDate,
+  author: { '@type': 'Person', name: SITE.author, url: SITE.url },
+  url: new URL(Astro.url.pathname, SITE.url).href,
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <JsonLd schema={schema} slot="head" />
+  <article class="prose mx-auto px-6 py-12 dark:prose-invert">
+    <header class="not-prose mb-8">
+      <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
+      <p class="mt-2 flex items-center gap-2 font-mono text-sm text-accent">
+        <time datetime={isoDate}>{displayDate}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingMinutes} min read</span>
+      </p>
+      {
+        tags.length > 0 && (
+          <ul class="mt-3 flex flex-wrap gap-2 text-xs font-mono">
+            {tags.map((tag) => (
+              <li class="rounded bg-accent/10 px-2 py-0.5 text-accent">{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+    <slot />
+  </article>
+</BaseLayout>
