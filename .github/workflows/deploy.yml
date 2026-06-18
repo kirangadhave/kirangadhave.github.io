@@ -23,6 +23,7 @@ jobs:
       - name: Build with Astro
         uses: withastro/action@v3
         with:
+          node-version: 24
           package-manager: pnpm@10.33.0
 
   deploy:

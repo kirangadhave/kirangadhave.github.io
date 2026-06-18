@@ -42,3 +42,6 @@ next-env.d.ts
 
 .reference
 .superpowers/
+
+# agent process artifacts (plans/specs live in the vault, not the repo)
+docs/superpowers/
