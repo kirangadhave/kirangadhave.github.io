@@ -1,0 +1,41 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { SITE } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE.description } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <!-- Apply the stored theme before first paint so dark mode never flashes light. -->
+    <script is:inline>
+      const KEY = '__kbg_color_mode__';
+      const stored = localStorage.getItem(KEY);
+      const dark = stored
+        ? stored === 'dark'
+        : matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.classList.toggle('dark', dark);
+    </script>
+  </head>
+  <body class="min-h-dvh font-sans">
+    <header class="flex items-center justify-between px-6 py-4">
+      <a href="/" class="font-mono text-sm tracking-tight">kiran.gadhave</a>
+      <ThemeToggle />
+    </header>
+    <slot />
+  </body>
+</html>
