@@ -32,3 +32,88 @@
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
+
+/* marimo islands and WASM embeds boot Pyodide in the browser, which takes a few
+   seconds. The static cell output is already painted underneath, so a corner
+   badge signals "still booting, not yet interactive" without hiding it. The
+   badge is removed once the runtime is ready (see the components' inline
+   scripts / the iframe load handler). */
+.marimo-island,
+.marimo-embed-wrap {
+  position: relative;
+}
+
+.marimo-loading {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1;
+  color: var(--color-fg);
+  background: color-mix(in oklch, var(--color-bg) 82%, transparent);
+  border: 1px solid color-mix(in oklch, var(--color-accent) 35%, transparent);
+  border-radius: 9999px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.dark .marimo-loading {
+  color: var(--color-fg-dark);
+  background: color-mix(in oklch, var(--color-bg-dark) 72%, transparent);
+}
+
+/* Centered variant for the WASM iframe, whose area is blank until it loads
+   (no pre-rendered output to sit beside). */
+.marimo-loading--center {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  flex-direction: column;
+  gap: 0.6rem;
+  transform: translate(-50%, -50%);
+}
+
+.marimo-loading--center .marimo-spinner {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.marimo-spinner {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 2px solid color-mix(in oklch, var(--color-accent) 30%, transparent);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: marimo-spin 0.7s linear infinite;
+}
+
+@keyframes marimo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes marimo-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Island readiness is page-wide (one kernel per page), so it flags <html>;
+   scope the hide to island badges. Embed readiness is per-iframe. */
+html.marimo-ready .marimo-island > .marimo-loading,
+.marimo-embed-wrap.marimo-ready .marimo-loading {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marimo-spinner {
+    animation: marimo-pulse 1.3s ease-in-out infinite;
+  }
+}

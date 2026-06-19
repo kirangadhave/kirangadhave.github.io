@@ -17,10 +17,15 @@ const { slug, title, height = '600px' } = Astro.props;
 const src = `/notebooks/${slug}/`;
 ---
 
-<iframe
-  src={src}
-  title={title}
-  loading="lazy"
-  class="marimo-embed not-prose w-full rounded-lg border border-black/10 dark:border-white/10"
-  style={`height: ${height}`}
-  sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>
+<div class="marimo-embed-wrap not-prose" style={`height: ${height}`}>
+  <div class="marimo-loading marimo-loading--center" aria-hidden="true">
+    <span class="marimo-spinner"></span>loading marimo…
+  </div>
+  <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    class="marimo-embed h-full w-full rounded-lg border border-black/10 dark:border-white/10"
+    sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"
+    onload="this.parentElement.classList.add('marimo-ready')"></iframe>
+</div>

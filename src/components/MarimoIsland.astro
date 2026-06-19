@@ -33,7 +33,19 @@ if (!head || !body) {
     `No marimo island generated for slug "${slug}". Add notebooks/${slug}.py and run \`pnpm build:islands\`.`
   );
 }
+
+// The islands runtime registers <marimo-island> only once Pyodide has booted
+// (marimo bootstrap.ts, on "kernel-ready"), so whenDefined resolving is the
+// "now interactive" signal that clears the loading badges. The timeout is a
+// safety net: if the runtime never boots, don't spin forever.
+const READY_SCRIPT = `customElements.whenDefined('marimo-island').then(function(){document.documentElement.classList.add('marimo-ready')});setTimeout(function(){document.documentElement.classList.add('marimo-ready')},30000)`;
 ---
 
 <Fragment set:html={head} />
-<div class="marimo-island not-prose" set:html={body} />
+<script is:inline set:html={READY_SCRIPT} />
+<div class="marimo-island not-prose">
+  <div class="marimo-loading" aria-hidden="true">
+    <span class="marimo-spinner"></span>loading marimo…
+  </div>
+  <div set:html={body} />
+</div>
