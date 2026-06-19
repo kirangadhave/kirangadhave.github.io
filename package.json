@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "predev": "pnpm build:islands",
     "dev": "astro dev",
     "build:islands": "uv run scripts/build-islands.py",
     "prebuild": "pnpm build:islands",

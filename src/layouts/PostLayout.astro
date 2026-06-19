@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
+import MolabBadge from '../components/MolabBadge.astro';
 import { SITE } from '../consts';
 
 interface Props {
@@ -8,11 +9,12 @@ interface Props {
   description: string;
   date: Date;
   tags: string[];
+  molab?: string;
   /** Raw markdown body, used only to estimate reading time. */
   body: string;
 }
 
-const { title, description, date, tags, body } = Astro.props;
+const { title, description, date, tags, molab, body } = Astro.props;
 
 const WORDS_PER_MINUTE = 200;
 const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
@@ -53,6 +55,13 @@ const schema = {
               <li class="rounded bg-accent/10 px-2 py-0.5 text-accent">{tag}</li>
             ))}
           </ul>
+        )
+      }
+      {
+        molab && (
+          <div class="mt-4">
+            <MolabBadge url={molab} />
+          </div>
         )
       }
     </header>

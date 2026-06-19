@@ -63,6 +63,28 @@ async def build_one(nb: Path) -> None:
     print(f"built island: {nb.stem} ({len(cells)} cells)")
 
 
+def outputs_for(nb: Path) -> list[Path]:
+    outs = [
+        OUT / f"{nb.stem}.head.html",
+        OUT / f"{nb.stem}.body.html",
+        OUT / f"{nb.stem}.cells.json",
+    ]
+    if nb.stem in EMBEDS:
+        outs.append(EMBED_OUT / nb.stem / "index.html")
+    return outs
+
+
+def is_stale(nb: Path) -> bool:
+    """A notebook needs rebuilding if any output is missing or older than the
+    source — or older than this script, since changing the build logic should
+    regenerate every fragment."""
+    outs = outputs_for(nb)
+    if not all(out.exists() for out in outs):
+        return True
+    newest_input = max(nb.stat().st_mtime, Path(__file__).stat().st_mtime)
+    return any(out.stat().st_mtime < newest_input for out in outs)
+
+
 def export_wasm(nb: Path) -> None:
     out = EMBED_OUT / nb.stem
     subprocess.run(
@@ -86,7 +108,11 @@ def export_wasm(nb: Path) -> None:
 
 async def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    force = "--force" in sys.argv
     for nb in sorted(NOTEBOOKS.glob("*.py")):
+        if not force and not is_stale(nb):
+            print(f"up to date: {nb.stem}")
+            continue
         await build_one(nb)
         if nb.stem in EMBEDS:
             export_wasm(nb)

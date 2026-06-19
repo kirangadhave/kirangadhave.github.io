@@ -1,0 +1,21 @@
+---
+interface Props {
+  /** molab notebook URL (https://molab.marimo.io/...). */
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+<a
+  class="not-prose inline-block"
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <img
+    src="https://marimo.io/molab-shield.svg"
+    alt="Open in molab"
+    height="28"
+  />
+</a>

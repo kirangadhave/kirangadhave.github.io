@@ -117,3 +117,9 @@ html.marimo-ready .marimo-island > .marimo-loading,
     animation: marimo-pulse 1.3s ease-in-out infinite;
   }
 }
+
+/* Pages embedded in an iframe (set by BaseLayout) drop the site chrome. */
+html.embedded body > header,
+html.embedded body > footer {
+  display: none;
+}
