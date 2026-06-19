@@ -1,13 +1,19 @@
 ---
 import { SITE, SOCIALS } from '../consts';
+import SocialIcon from './SocialIcon.astro';
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="mt-16 px-6 py-8 text-sm">
   <div class="flex flex-wrap items-center gap-4">
-    {SOCIALS.map((social) => <a href={social.href} class="hover:text-accent">{social.key}</a>)}
-    <a href="/rss.xml" class="hover:text-accent">RSS</a>
+    {
+      SOCIALS.map((social) => (
+        <a href={social.href} aria-label={social.key} title={social.key} class="hover:text-accent">
+          <SocialIcon name={social.key} />
+        </a>
+      ))
+    }
   </div>
   <p class="mt-4 opacity-70">© {year} {SITE.author}</p>
 </footer>

@@ -19,6 +19,4 @@ export const SOCIALS = [
   { key: 'GitHub', href: 'https://github.com/kirangadhave' },
   { key: 'Google Scholar', href: 'https://scholar.google.com/citations?user=RXAZarcAAAAJ&hl=en' },
   { key: 'LinkedIn', href: 'https://www.linkedin.com/in/gadhavekiran/' },
-  { key: 'Mastodon', href: 'https://vis.social/@kirangadhave' },
-  { key: 'Email', href: 'mailto:kirangadhave2@gmail.com' },
 ] as const;
